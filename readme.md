@@ -1,4 +1,4 @@
-This is a django project
+This is a django + react project
 
 
 Setting Up the Backend
@@ -30,3 +30,13 @@ Create a superuser (optional for admin access):
 Start the Django server:
     
     python manage.py runserver
+
+
+setting up frontend:
+
+    cd rental-fronted
+    npm install
+
+run front-end:
+
+    npm start
