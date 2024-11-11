@@ -14,32 +14,66 @@ from .serializers import (
 import google.generativeai as genai
 import os
 import json
+from dotenv import load_dotenv
 
+load_dotenv()
 
-gemini_api_key = "AIzaSyCmpqwZws_cV0uSxzhz-efwnAC3n2R_vUE"
-print(gemini_api_key)
-genai.configure(api_key=gemini_api_key)
+# gemini_api_key = "AIzaSyCmpqwZws_cV0uSxzhz-efwnAC3n2R_vUE"
+gem=os.environ['API_KEY']
+print(gem)
+genai.configure(api_key=gem)
+
 
 def get_data_from_sql():
     try:
+        # Fetch data from the tables
         tools = Tool.objects.all()
+        rentals = Rental.objects.all()
+        customers = Customer.objects.all()
+        suppliers = Supplier.objects.all()
         
-        # Prepare a list of strings for each tool's description and details
+        # Prepare tool information
         tool_info = []
         for tool in tools:
             tool_info.append(
                 f"Tool: {tool.name}, Description: {tool.description}, Price: {tool.rental_price}, Available Quantity: {tool.quantity}"
             )
+        # Prepare rental information
+        rental_info = []
+        for rental in rentals:
+            rental_info.append(
+                f"Rental ID: {rental.id}, Tool: {rental.tool.name}, Customer: {rental.user.cname}, Rental Date: {rental.rental_date}, Return Date: {rental.return_date}"
+            )
+        
+        # Prepare customer information
+        customer_info = []
+        for customer in customers:
+            customer_info.append(
+                f"Customer: {customer.cname}, Email: {customer.email}, Phone: {customer.phone_number}"
+            )
+        
+        # Prepare supplier information
+        supplier_info = []
+        for supplier in suppliers:
+            supplier_info.append(
+                f"Supplier: {supplier.sname}, Contact: {supplier.phone_number}, Email: {supplier.email}"
+            )
 
-        # Join all tool descriptions into a single string with each tool info on a new line
-        context_str = "\n".join(tool_info)
+        # Combine all information into one context string
+        context_str = (
+            "Here is the list of available tools and their descriptions:\n" + "\n".join(tool_info) +
+            "\n\nHere is the list of rental information:\n" + "\n".join(rental_info) +
+            "\n\nHere is the list of customers:\n" + "\n".join(customer_info) +
+            "\n\nHere is the list of suppliers:\n" + "\n".join(supplier_info)
+        )
 
-        # Return the context string for the chatbot
+        # Return the combined context string
         return context_str
 
     except Exception as e:
         print(f"Error querying database: {e}")
-        return "Error fetching tool data."
+        return "Error fetching data."
+
 
 @csrf_exempt  # Only for testing purposes; remove in production
 def gemini_chatbot(request):
@@ -50,25 +84,31 @@ def gemini_chatbot(request):
             user_message = data.get("message")
             context = data.get("context")  # Optional context passed by the user
 
-            print(f"Received message: {user_message}")  # Logging for debugging
-
             if user_message:
                 # Build the full context (tool information from the database)
-                tools_context = get_data_from_sql()
+                full_context = get_data_from_sql()
 
-                # If the user provides additional context, append it to the tools context
+                # If the user provides additional context, append it to the full context
                 if context:
-                    tools_context += f"\nAdditional context from user: {context}"
+                    full_context += f"\nAdditional context from user: {context}"
 
                 # Initialize the model with the full context
+                generation_config = {
+                    "temperature": 2,
+                    "top_p": 0.95,
+                    "top_k": 40,
+                    "max_output_tokens": 8192,
+                    "response_mime_type": "text/plain",
+                }
                 model = genai.GenerativeModel(
                     model_name="gemini-1.5-flash",
-                    system_instruction=f"Here is the list of available tools and their descriptions: \n{tools_context}\nPlease answer the following question based on this information: {user_message}",
+                    generation_config=generation_config,
+                    system_instruction=f"Here is the list of available tools, rentals, customers, and suppliers: \n{full_context}\nPlease answer the following question based on this information: {user_message}",
                 )
+
 
                 # Generate the response from the model
                 response = model.generate_content(user_message)
-                print(f"Generated response: {response.text}")  # Log the generated response
 
                 # Return the generated response in JSON format
                 return JsonResponse({"response": response.text})
@@ -78,6 +118,65 @@ def gemini_chatbot(request):
             return JsonResponse({"error": "Invalid JSON"}, status=400)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+# def get_data_from_sql():
+#     try:
+#         tools = Tool.objects.all()
+#         rentals=Rental.objects.all()
+#         # Prepare a list of strings for each tool's description and details
+#         tool_info = []
+#         for tool in tools:
+#             tool_info.append(
+#                 f"Tool: {tool.name}, Description: {tool.description}, Price: {tool.rental_price}, Available Quantity: {tool.quantity}"
+#             )
+#         rental_info = []
+        
+
+#         # Join all tool descriptions into a single string with each tool info on a new line
+#         context_str = "\n".join(tool_info)
+
+#         # Return the context string for the chatbot
+#         return context_str
+
+#     except Exception as e:
+#         print(f"Error querying database: {e}")
+#         return "Error fetching tool data."
+
+# @csrf_exempt  # Only for testing purposes; remove in production
+# def gemini_chatbot(request):
+#     if request.method == "POST":
+#         try:
+#             # Parse the raw JSON data from the request body
+#             data = json.loads(request.body.decode('utf-8'))
+#             user_message = data.get("message")
+#             context = data.get("context")  # Optional context passed by the user
+
+#             if user_message:
+#                 # Build the full context (tool information from the database)
+#                 tools_context = get_data_from_sql()
+
+#                 # If the user provides additional context, append it to the tools context
+#                 if context:
+#                     tools_context += f"\nAdditional context from user: {context}"
+
+#                 # Initialize the model with the full context
+#                 model = genai.GenerativeModel(
+#                     model_name="gemini-1.5-flash",
+#                     system_instruction=f"Here is the list of available tools and their descriptions: \n{tools_context}\nPlease answer the following question based on this information: {user_message}",
+#                 )
+
+#                 # Generate the response from the model
+#                 response = model.generate_content(user_message)
+
+#                 # Return the generated response in JSON format
+#                 return JsonResponse({"response": response.text})
+#             else:
+#                 return JsonResponse({"error": "No message provided"}, status=400)
+#         except json.JSONDecodeError:
+#             return JsonResponse({"error": "Invalid JSON"}, status=400)
+#     else:
+#         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 # def get_data_from_sql():
 #     # ... your database query logic here using Django ORM or SQL ...
