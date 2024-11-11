@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tool, Rental, Supplier, Customer
+from .models import Tool, Rental, Supplier, Customer, Invoice
 from django.contrib.auth.models import User
 
 class ToolSerializer(serializers.ModelSerializer):
@@ -39,6 +39,20 @@ class RentalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rental
         fields = '__all__'
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invoice
+        fields = '__all__'
+
+class RentalSerializer1(serializers.ModelSerializer):
+    tool_name = serializers.CharField(source='tool.name', read_only=True)
+    user_name = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = Rental
+        fields = ['id', 'tool_name', 'user_name', 'rental_date', 'return_date']
+
 
 class SupplierSerializer(serializers.ModelSerializer):
     class Meta:

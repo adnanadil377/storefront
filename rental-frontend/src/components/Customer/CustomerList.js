@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-const SupplierList = () => {
+const CustomerList = () => {
     const [details, setDetails] = useState([]);
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const SupplierList = () => {
 
     return (
         
-        <div className='p-5 bg-white shadow-md rounded-lg md:ml-20 md:mr-20 md:mt-5'>
+        <div className='p-5 bg-white shadow-md rounded-lg bg-opacity-60 md:ml-20 md:mr-20 md:mt-5'>
             <h1 className='text font-bold text-2xl text-fuchsia-950 ml-10'>Customer List</h1>
             
             <div className='relative overflow-x-auto'>
@@ -49,4 +49,4 @@ const SupplierList = () => {
     );
 };
 
-export default SupplierList;
+export default CustomerList;

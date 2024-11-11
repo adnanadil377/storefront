@@ -17,7 +17,7 @@ const SupplierList = () => {
 
     return (
         
-        <div className='p-5 bg-white shadow-md rounded-lg md:ml-20 md:mr-20 md:mt-5'>
+        <div className='p-5 bg-white bg-opacity-80 shadow-md rounded-lg md:ml-20 md:mr-20 md:mt-5'>
             <h1 className='text font-bold text-2xl text-fuchsia-950 ml-10'>Supplier List</h1>
             
             <div className='relative overflow-x-auto'>

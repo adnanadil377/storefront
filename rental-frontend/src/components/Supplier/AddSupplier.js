@@ -38,7 +38,7 @@ const handleSubmit=async (e) =>{
 
 
   return (
-    <div className='p-5 bg-white shadow-md rounded-lg md:ml-20 md:mr-20 md:mt-5'>
+    <div className='p-5 bg-white shadow-md bg-opacity-80 rounded-lg md:ml-20 md:mr-20 md:mt-5'>
         
       <form className='pl-20 pr-20'
             onSubmit={handleSubmit}

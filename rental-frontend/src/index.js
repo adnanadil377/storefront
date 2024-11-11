@@ -6,7 +6,7 @@ import './index.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App className='bg-gradient-to-r from-cyan-500 to-blue-500'/>
   </React.StrictMode>
 );
 

@@ -10,7 +10,7 @@ const ToolListCard = (props) => {
     }
     return (
         <div>
-            <div className='max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg'>
+            <div className='max-w-lg mx-auto p-6 bg-white bg-opacity-80 shadow-md rounded-lg'>
                 <div key={props.tl.id} onClick={handleClick}>
                     <h1 className='text-2xl font-bold mb-4'>{props.tl.name}</h1>
                     <p className='text-gray-700 mb-2'>{props.tl.description}</p>

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Chatbot from './components/ChatBot/ChatBot';
 import AddCustomer from './components/Customer/AddCustomer';
 import Customer from './components/Customer/Customer';
 import CustomerList from './components/Customer/CustomerList';
 import Home from './components/Home';
+import Invoice from './components/Invoice/Invoice';
+import AddLease from './components/Lease/AddLease';
+import Lease from './components/Lease/Lease';
+import LeaseList from './components/Lease/LeaseList';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Register from './components/Register';
@@ -39,6 +44,11 @@ function App() {
         <Route path="/customers" element={<Customer token={token} />} />
         <Route path="/customers/customerlist" element={<CustomerList token={token} />} />
         <Route path="/customers/addcustomer" element={<AddCustomer token={token} />} />
+        <Route path="/lease" element={<Lease token={token} />} />
+        <Route path="/lease/leaselist" element={<LeaseList token={token} />} />
+        <Route path="/lease/addlease" element={<AddLease token={token} />} />
+        <Route path="/invoice" element={<Invoice token={token} />} />
+        <Route path="/chat" element={<Chatbot token={token} />} />
       </Routes>
     </Router>
   );

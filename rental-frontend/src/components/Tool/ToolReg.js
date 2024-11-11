@@ -70,20 +70,26 @@ const ToolReg = () => {
     };
 
     return (
-        <div className='flex flex-row justify-center bg-slate-50'>
-            <form className='bg-white rounded-lg shadow-lg' onSubmit={handleSubmit}>
+        <div className='p-5 bg-white shadow-md rounded-lg md:ml-20 md:mr-20 md:mt-5'>
+            <form className='pl-20 pr-20' onSubmit={handleSubmit}>
                 <div className='p-2'>
                     <input type='text'
                         placeholder='Tool Name'
-                        className='rounded-2xl'
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         value={name}
                         onChange={(e) => setToolName(e.target.value)}
                         required />
                 </div>
-                <div className='p-2'>
+                <div className='mb-6'>
                     <input type='text'
                         placeholder='Description'
-                        className='rounded-2xl'
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required />
@@ -91,7 +97,10 @@ const ToolReg = () => {
                 <div className='p-2'>
                     <input type='number'
                         placeholder='Price'
-                        className='rounded-2xl'
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         value={rental_price}
                         onChange={(e) => setPrice(e.target.value)}
                         required />
@@ -99,7 +108,10 @@ const ToolReg = () => {
                 <div className='p-2'>
                     <input type='number'
                         placeholder='Quantity'
-                        className='rounded-2xl'
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         value={quantity}
                         onChange={(e) => setQty(e.target.value)}
                         required />
@@ -107,14 +119,20 @@ const ToolReg = () => {
                 <div className='p-2'>
                     <input type='text'
                         placeholder='Category'
-                        className='rounded-2xl w-full'
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full'
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required />
                 </div>
                 <div className='p-2'>
                     <select
-                        className='rounded-2xl w-full'
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                      focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full'
                         value={supplier_id}
                         onChange={(e) => setSupplier_id(e.target.value)}
                         required>

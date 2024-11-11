@@ -30,7 +30,7 @@ const ToolDetail = () => {
     if (error) return <p className="text-red-500 text-center">Error: {error}</p>;
 
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+        <div className="max-w-lg mx-auto p-6 bg-white  bg-opacity-80 shadow-md rounded-lg">
             {tool ? (
                 <>
                     <h1 className="text-2xl font-bold mb-4">{tool.name}</h1>
