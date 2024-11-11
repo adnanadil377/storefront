@@ -79,13 +79,17 @@ WSGI_APPLICATION = 'rental_management.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'rental_db_2',
+    #     'USER': 'root',
+    #     'PASSWORD': 'Demo@2004',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rental_db_2',
-        'USER': 'root',
-        'PASSWORD': 'Demo@2004',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
