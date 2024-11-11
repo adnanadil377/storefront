@@ -18,7 +18,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# gemini_api_key = "AIzaSyCmpqwZws_cV0uSxzhz-efwnAC3n2R_vUE"
 gem=os.environ['API_KEY']
 print(gem)
 genai.configure(api_key=gem)
